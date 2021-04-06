@@ -53,7 +53,7 @@ eval_dict_pairs = [x.lower().split("\t") for x in util.load_lines(args.test_set_
 cntr = 0
 for ep in eval_dict_pairs:
   cntr += 1
-  if cntr % 10 == 0:
+  if cntr % 100 == 0:
     print(cntr)
   ind = sims.most_similar_index(ep[0].strip(), ep[1].strip(), vocab_dict_src, vocab_dict_trg, embs_src, embs_trg) 
   if ind:

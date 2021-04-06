@@ -78,14 +78,14 @@ def project_fipp(vocab_dict_src, embs_src, vocab_dict_trg, embs_trg, trans_dict,
   ## (1) Preprocess embeddings ##
 
   ## (2) Self-learning framework ##
-  if self_learn_num > 0:
-    # Get indices of source and target pairs from training set
-    curr_idxs_src, curr_idxs_tgt, max_sims = [], [], []
-    for sw, tw in trans_dict:
-        if sw in vocab_dict_src and tw in vocab_dict_trg:
-            curr_idxs_src.append(vocab_dict_src[sw])
-            curr_idxs_tgt.append(vocab_dict_trg[tw])
+  # Get indices of source and target pairs from training set
+  curr_idxs_src, curr_idxs_tgt, max_sims = [], [], []
+  for sw, tw in trans_dict:
+      if sw in vocab_dict_src and tw in vocab_dict_trg:
+          curr_idxs_src.append(vocab_dict_src[sw])
+          curr_idxs_tgt.append(vocab_dict_trg[tw])
 
+  if self_learn_num > 0:
     # Get normalized similarity matrices for training pairs
     sims_mat_src, sims_mat_tgt = np.dot(src_train, embs_src.T).T, np.dot(tgt_train, embs_trg.T).T
     sims_mat_src /= np.linalg.norm(sims_mat_src, axis=1)[:, np.newaxis]
@@ -133,7 +133,7 @@ def project_fipp(vocab_dict_src, embs_src, vocab_dict_trg, embs_trg, trans_dict,
   x_s_tilde_result = np.matmul(eig_vecs, np.sqrt(np.diag(eig_vals)))
 
   train_test_sim_mat, dim_mat = np.dot(src_train, embs_src.T), x_s_tilde_result.T.dot(x_s_tilde_result)
-  ls_proj_x_s_tilde = scipy.linalg.solve(dim_mat, x_s_tilde_result.T.dot(train_test_sim_mat), assume_a = 'pos')
+  ls_proj_x_s_tilde = scipy.linalg.solve(dim_mat, x_s_tilde_result.T.dot(train_test_sim_mat))
   ## (3) Run FIPP ##
 
   ## (4) Weighted procrustes rotation  ##
