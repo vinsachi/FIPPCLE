@@ -39,7 +39,7 @@ for (lang1, lang2) in res_dict_5K:
         
         ## Code to profile ##
         start_time = time.time()
-	    os.system('python code/map.py -m f -d bli_datasets/%s-%s/yacle.train.freq.5k.%s-%s.tsv --lang_src %s --lang_trg %s ft-raw-200k/vecs_%s ft-raw-200k/vocab_%s ft-raw-200k/vecs_%s ft-raw-200k/vocab_%s ft-raw-200k/ --eps %s --lamb %s'% (lang1, lang2, lang1, lang2, lang1, lang2, lang1, lang1, lang2, lang2, eps, lamb))
+        os.system('python code/map.py -m f -d bli_datasets/%s-%s/yacle.train.freq.5k.%s-%s.tsv --lang_src %s --lang_trg %s ft-raw-200k/vecs_%s ft-raw-200k/vocab_%s ft-raw-200k/vecs_%s ft-raw-200k/vocab_%s ft-raw-200k/ --eps %s --lamb %s'% (lang1, lang2, lang1, lang2, lang1, lang2, lang1, lang1, lang2, lang2, eps, lamb))
         res_dict_5K[(lang1, lang2)]['runtime'].append(float(time.time() - start_time))
         ## Code to profile ##
 
