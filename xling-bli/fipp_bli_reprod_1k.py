@@ -39,5 +39,5 @@ for (lang1, lang2) in res_dict_1K:
 	res_dict_1K[(lang1, lang2)]['result_mrr'] = float(f.readlines()[-1])
 
 json_results = {k[0] + "_" + k[1]: v for k, v in res_dict_1K.items()}
-with open('results_1K.json', 'w') as fp: 
+with open('bli_reprod_1k.json', 'w') as fp: 
     json.dump(json_results, fp)

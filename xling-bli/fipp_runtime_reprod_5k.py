@@ -1,5 +1,7 @@
 import os
 import json
+import time
+import numpy as np
 
 res_dict_5K = {('de', 'fi'): {'eps': 0.05,   'lamb': 0.25,  'paper_mrr': 0.389},
                ('de', 'fr'): {'eps': 0.025,  'lamb': 1.25,  'paper_mrr': 0.543},
@@ -31,13 +33,19 @@ res_dict_5K = {('de', 'fi'): {'eps': 0.05,   'lamb': 0.25,  'paper_mrr': 0.389},
                ('tr', 'ru'): {'eps': 0.1,    'lamb': 0.5,   'paper_mrr': 0.319}}
 
 for (lang1, lang2) in res_dict_5K:
-	eps, lamb = res_dict_5K[lang1, lang2]['eps'], res_dict_5K[lang1, lang2]['lamb']
-	os.system('python code/map.py -m f -d bli_datasets/%s-%s/yacle.train.freq.5k.%s-%s.tsv --lang_src %s --lang_trg %s ft-raw-200k/vecs_%s ft-raw-200k/vocab_%s ft-raw-200k/vecs_%s ft-raw-200k/vocab_%s ft-raw-200k/ --eps %s --lamb %s'% (lang1, lang2, lang1, lang2, lang1, lang2, lang1, lang1, lang2, lang2, eps, lamb))
-	os.system('python code/eval.py bli_datasets/%s-%s/yacle.test.freq.2k.%s-%s.tsv ft-raw-200k/%s-%s.%s.vectors ft-raw-200k/%s-%s.%s.vectors ft-raw-200k/%s-%s.%s.vocab ft-raw-200k/%s-%s.%s.vocab --eps %s --lamb %s'%(lang1, lang2, lang1, lang2, lang1, lang2, lang1, lang1, lang2, lang2, lang1, lang2, lang1, lang1, lang2, lang2, eps, lamb))
+    res_dict_5K[(lang1, lang2)]['runtime'] = []
+    for run_idx in range(NUM_RUNS):
+        eps, lamb = res_dict_5K[lang1, lang2]['eps'], res_dict_5K[lang1, lang2]['lamb']
+        
+        ## Code to profile ##
+        start_time = time.time()
+	    os.system('python code/map.py -m f -d bli_datasets/%s-%s/yacle.train.freq.5k.%s-%s.tsv --lang_src %s --lang_trg %s ft-raw-200k/vecs_%s ft-raw-200k/vocab_%s ft-raw-200k/vecs_%s ft-raw-200k/vocab_%s ft-raw-200k/ --eps %s --lamb %s'% (lang1, lang2, lang1, lang2, lang1, lang2, lang1, lang1, lang2, lang2, eps, lamb))
+        res_dict_5K[(lang1, lang2)]['runtime'].append(float(time.time() - start_time))
+        ## Code to profile ##
 
-	f = open("results_tuned/%s-%s_results_%s_%s.txt"%(lang1, lang2, eps, lamb), "r")
-	res_dict_5K[(lang1, lang2)]['result_mrr'] = float(f.readlines()[-1])
+for (lang1, lang2) in res_dict_5K: 
+    res_dict_5K[(lang1, lang2)]['avg_runtime'] = np.mean(res_dict_5K[(lang1, lang2)]['runtime'])
 
 json_results = {k[0] + "_" + k[1] : v for k, v in res_dict_5K.items()}
-with open('results_5K.json', 'w') as fp: 
+with open('runtime_reprod_5k.json', 'w') as fp: 
     json.dump(json_results, fp)

@@ -33,7 +33,10 @@ python emb_serializer.py ../ft-raw-200k/fasttext.wiki.tr.300.vocab_200K.vec ../f
 # when using self-learning, please install torch from https://pytorch.org based on your hardware specifications
 pip install numpy scipy tqdm IPython scikit-learn
 
-# (V) Run reproduction scripts and output to json
+# (V) Run reproduction scripts for both BLI MAP and runtime. Output to json.
 cd ..
-python fipp_reprod_1k.py
-python fipp_reprod_5k.py
+python fipp_bli_reprod_1k.py
+python fipp_bli_reprod_5k.py
+
+python fipp_runtime_reprod_1k.py
+python fipp_runtime_reprod_5k.py
