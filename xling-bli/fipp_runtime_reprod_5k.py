@@ -3,6 +3,7 @@ import json
 import time
 import numpy as np
 
+NUM_RUNS = 5
 res_dict_5K = {('de', 'fi'): {'eps': 0.05,   'lamb': 0.25,  'paper_mrr': 0.389},
                ('de', 'fr'): {'eps': 0.025,  'lamb': 1.25,  'paper_mrr': 0.543},
                ('de', 'hr'): {'eps': 0.05,   'lamb': 1.25,  'paper_mrr': 0.360},
