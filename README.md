@@ -2,7 +2,7 @@
 Repository for "Filtered Inner Product Projection for Crosslingual Embedding Alignment" (ICLR 2021) [https://openreview.net/forum?id=A2gNouoXE7]
 
 ## Method Code 
-The entirety of code for FIPP is contained within the method `project_fipp` in `xling-bli/code/projection.py`.
+The entirety of the code for the FIPP algorithm is contained within the method `project_fipp` in `xling-bli/code/projection.py`.
 
 ## Reproduction of Paper Results
 
@@ -13,7 +13,7 @@ All code necessary for reproduction of BLI results and runtime profiling from th
 BLI reproduction results from the head of this repo for both XLING 1K and 5K are included in `xling-bli/bli_reprod_1K.json` and `xling-bli/bli_reprod_5K.json`. 
 
 - One can reconstruct results by running `fipp_bli_reprod_1k.py` and `fipp_bli_reprod_5k.py` respectively after running the preceding lines in `xling-bli/setup.sh`. 
-- Results from reproduction are $+/- 0.001$ from numbers reported in the paper. Averaged MAP over all 28 language pairs is provided in the table below
+- Results from reproduction are within [-0.001, +0.003] from numbers reported in the paper. Averaged MAP over all 28 language pairs is provided in the table below
 
 Dataset | Dictionary Size (incl. any Augmentation) | MAP
 ------------ | ------------- | -------------
@@ -34,8 +34,8 @@ XLING 5K (No Self Learning) | 5K | 16.80
 
 ## Environment
 - Dependencies for FIPP are included below, although we only utilize standard linear algebraic procedures (Eigendecomposition, Least Squares, SVD) note that different versions of `numpy, scipy` will have variations in their implementation of these procedures. 
-- Additionally, `pytorch` with `fp32` precision is utilized to speed up when utilizing self-learning
-- We utilize only matrix multiplications in `pytorch` and expect variations in results to be minimal across builds and CUDA versions. 
+- Additionally, `pytorch` with `fp32` precision is utilized to speed up our self-learning framework
+- We use only matrix multiplications in `pytorch` and expect variations in results to be minimal across builds and CUDA versions. 
 
 All reported results use Python 3.6.10 (code is backwards compatible with Python 2) with the following version set:
 ```
