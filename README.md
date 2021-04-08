@@ -8,7 +8,7 @@ The entirety of the code for the FIPP algorithm is contained within the method `
 
 All code necessary for reproduction of BLI results and runtime profiling from the paper is contained in `xling-bli/setup.sh`. This code will download the necessary fastText embeddings, serialize them, and produce BLI and runtime results for all 28 language pairs (for both 1K and 5K dictionaries).
 
-To run the reproduction run the below code. If you use the self-learning framework, please first install pytorch for your appropriate CUDA build from https://pytorch.org. 
+Please install pytorch for your appropriate CUDA build (from https://pytorch.org); then run the script below to setup the datasets + environment and run the reproduction.
 
 ```
 bash xling-bli/setup.sh
