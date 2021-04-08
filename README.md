@@ -20,6 +20,7 @@ BLI reproduction results from the head of this repo for both XLING 1K and 5K are
 
 - One can reconstruct results by running `fipp_bli_reprod_1k.py` and `fipp_bli_reprod_5k.py` respectively after running the preceding lines in `xling-bli/setup.sh`. 
 - Results from reproduction are within [-0.001, +0.003] from numbers reported in the paper. Averaged MAP over all 28 language pairs is provided in the table below
+- Aggregate performance for 5K is equivalent to what is reported in the paper and for 1K aggregate performance is 0.001 above what is reported in the paper
 
 Dataset | Dictionary Size (incl. any Augmentation) | MAP
 ------------ | ------------- | -------------
